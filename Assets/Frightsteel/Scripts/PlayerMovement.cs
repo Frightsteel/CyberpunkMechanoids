@@ -6,11 +6,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform _cursorMark; //temp
 
     [SerializeField] private float _movementSpeed = 7f;
+    [SerializeField] private float _sprintSpeed = 14f;
     [SerializeField] private float _rotationSpeed = 15f;
 
     private PlayerInputController _input;
     
     private Rigidbody _rigidbody;
+
+    private float _actualSpeed;
 
     private void Awake()
     {
@@ -26,9 +29,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector3 moveDirection = transform.TransformDirection(new Vector3(_input.horizontalInput, 0f, _input.verticalInput));
+        Vector3 moveDirection = transform.TransformDirection(new Vector3(_input.HorizontalInput, 0f, _input.VerticalInput));
         moveDirection.Normalize();
-        moveDirection *= _movementSpeed;
+        
+        _actualSpeed = _input.IsSprint ? _sprintSpeed : _movementSpeed;
+        moveDirection *= _actualSpeed;
 
         Vector3 movementVelocity = moveDirection;
         
