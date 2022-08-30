@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 705507994}
+  m_Sun: {fileID: 0}
   m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -123,12 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!108 &705507994 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 2059645837616067028, guid: 4206121c59deb6d49876b060b17e3a73, type: 3}
-  m_PrefabInstance: {fileID: 2059645838253785934}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2059645838253785934
+--- !u!1001 &413241791
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
