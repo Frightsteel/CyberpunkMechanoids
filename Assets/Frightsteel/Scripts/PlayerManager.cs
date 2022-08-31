@@ -1,23 +1,28 @@
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+namespace CyberpunkAwakening.Player
 {
-    private PlayerInputController _input;
-    private PlayerMovement _movement;
-
-    private void Awake()
+    [RequireComponent(typeof(PlayerInputController))]
+    [RequireComponent(typeof(PlayerMovement))]
+    public class PlayerManager : MonoBehaviour
     {
-        _input = GetComponent<PlayerInputController>();
-        _movement = GetComponent<PlayerMovement>();
-    }
+        private PlayerInputController _input;
+        private PlayerMovement _movement;
 
-    private void Update()
-    {
-        _input.HandleAllInputs();
-    }
+        private void Awake()
+        {
+            _input = GetComponent<PlayerInputController>();
+            _movement = GetComponent<PlayerMovement>();
+        }
 
-    private void FixedUpdate()
-    {
-        _movement.HandleAllMovement();
+        private void Update()
+        {
+            _input.HandleAllInputs();
+        }
+
+        private void FixedUpdate()
+        {
+            _movement.HandleAllMovement();
+        }
     }
 }
