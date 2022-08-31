@@ -1,47 +1,46 @@
 using UnityEngine;
 
-public class PlayerInputController : MonoBehaviour
+namespace CyberpunkAwakening.Player
 {
-    private PlayerInput _input;
-    private Vector2 _movementInput;
-
-    public bool IsSprint { get; private set; }
-    public float VerticalInput { get; private set; }
-    public float HorizontalInput { get; private set; }
-
-    private void Awake()
+    public class PlayerInputController : MonoBehaviour
     {
-        _input = new PlayerInput();
-        _input.CharacterControls.Movement.performed += context => _movementInput = context.ReadValue<Vector2>();
-        _input.CharacterControls.Sprint.started += context => IsSprint = context.ReadValueAsButton();
-        _input.CharacterControls.Sprint.canceled += context => IsSprint = context.ReadValueAsButton();
-    }
+        private PlayerInput _input;
+        private Vector2 _movementInput;
 
-    private void OnEnable()
-    {
-        _input.CharacterControls.Enable();
-    }
+        public bool IsSprint { get; private set; }
+        public bool IsShoot { get; private set; }
+        public float VerticalInput { get; private set; }
+        public float HorizontalInput { get; private set; }
 
-    private void OnDisable()
-    {
-        _input.CharacterControls.Disable();
-    }
+        private void Awake()
+        {
+            _input = new PlayerInput();
+            _input.CharacterControls.Movement.performed += context => _movementInput = context.ReadValue<Vector2>();
+            _input.CharacterControls.Sprint.started += context => IsSprint = context.ReadValueAsButton();
+            _input.CharacterControls.Sprint.canceled += context => IsSprint = context.ReadValueAsButton();
+            _input.CharacterControls.Shoot.started += context => IsShoot = context.ReadValueAsButton();
+            _input.CharacterControls.Shoot.canceled += context => IsShoot = context.ReadValueAsButton();
+        }
 
-    public void HandleAllInputs()
-    {
-        HandleMovementInput();
-        //HandleSprintInput();
-        //HandleJumpInput
-        //HandleShootInput
-    }
+        private void OnEnable()
+        {
+            _input.CharacterControls.Enable();
+        }
 
-    private void HandleMovementInput()
-    {
-        VerticalInput = _movementInput.y;
-        HorizontalInput = _movementInput.x;
-    }
+        private void OnDisable()
+        {
+            _input.CharacterControls.Disable();
+        }
 
-    private void HandleSprintInput()
-    {
+        public void HandleAllInputs()
+        {
+            HandleMovementInput();
+        }
+
+        private void HandleMovementInput()
+        {
+            VerticalInput = _movementInput.y;
+            HorizontalInput = _movementInput.x;
+        }
     }
 }
