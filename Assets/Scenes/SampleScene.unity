@@ -245,11 +245,11 @@ GameObject:
   - component: {fileID: 1626058245}
   - component: {fileID: 1626058244}
   - component: {fileID: 1626058248}
-  - component: {fileID: 1626058247}
-  - component: {fileID: 1626058249}
   - component: {fileID: 1626058250}
+  - component: {fileID: 1626058251}
+  - component: {fileID: 1626058252}
   m_Layer: 0
-  m_Name: Spider
+  m_Name: Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,7 +263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626058242}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.24, y: 0, z: -12.11}
+  m_LocalPosition: {x: -1.24, y: 0, z: -16.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -333,26 +333,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626058242}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1626058247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626058242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea58cdf1ee734ee4ba3e7603aa4cc7ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 0
-  Damage: 0
-  WalkSpeed: 3
-  RunSpeed: 5
-  _points: {fileID: 746312139}
-  Agent: {fileID: 0}
-  meleeDamage: 0
-  rangeDamage: 0
 --- !u!54 &1626058248
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -369,29 +349,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1626058249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1626058242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf242165b5466734f9e98e175c2207f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Radius: 7
-  Angle: 100
-  PlayerRef: {fileID: 0}
-  TargetMask:
-    serializedVersion: 2
-    m_Bits: 8
-  ObstrucionMask:
-    serializedVersion: 2
-    m_Bits: 0
-  CanSeePlayer: 0
-  PlayerLastSpot: {x: 0, y: 0, z: 0}
 --- !u!195 &1626058250
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -414,6 +371,56 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1626058251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626058242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1350b5b76415aea4ea726dc008f7a197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: 0
+  Damage: 0
+  WalkSpeed: 0
+  RunSpeed: 0
+  MeleeAttackRange: 0
+  MeleeAttackDamage: 0
+  RangeAttackRange: 0
+  RangeAttackDamage: 0
+  _points: {fileID: 746312139}
+  Agent: {fileID: 1626058250}
+  EscapeRange: 0
+--- !u!114 &1626058252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626058242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4051ea57f87eab43b141ecf8f842457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Radius: 10
+  AttackRadius: 7
+  Angle: 120
+  PlayerRef: {fileID: 0}
+  TargetMask:
+    serializedVersion: 2
+    m_Bits: 8
+  ObstrucionMask:
+    serializedVersion: 2
+    m_Bits: 1
+  CanSeePlayer: 0
+  CanAttackPlayer: 0
+  PlayerLastSpot: {x: 0, y: 0, z: 0}
+  EscapeRadius: 3
+  CanEscapePlayer: 0
 --- !u!1 &1730083769
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +706,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7179993186678451443}
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: -12.5, y: 10, z: -12.5}
+  m_LocalPosition: {x: -15.11, y: 13.69, z: -15.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PatrolState : BaseEnemyState
+public class PatrolState : BaseState
 {
     private bool _canSeePlayer;
     private float _patrollingTime;
@@ -56,6 +56,6 @@ public class PatrolState : BaseEnemyState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        _canSeePlayer = Enemy.GetPlayerVisionStatus();
+        _canSeePlayer = Enemy.FOV.GetVisionResponse();
     }
 }

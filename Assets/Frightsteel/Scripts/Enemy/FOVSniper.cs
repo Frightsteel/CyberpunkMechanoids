@@ -1,55 +1,32 @@
 using System;
-using System.Collections;
 using UnityEngine;
-
-public class FieldOfView : MonoBehaviour
+public class FOVSniper : FieldOfView
 {
-    public float Radius;
-    public float AttackRadius;
+    public float EscapeRadius;
     
-    [Range(0,360)]
-    public float Angle;
+    private bool _canEscapePlayer;
 
-    public GameObject PlayerRef;
-
-    public LayerMask TargetMask;
-    public LayerMask ObstrucionMask;
-
-    [HideInInspector] public bool CanSeePlayer;
-    [HideInInspector] public bool CanAttackPlayer;
-    [HideInInspector] public Vector3 PlayerLastSpot;
-
-    public bool GetVisionResponse()
+    public bool GetEscapeResponse()
     {
-        return CanSeePlayer;
+        return _canEscapePlayer;
     }
 
-    public bool GetAttackResponce()
-    {
-        return CanAttackPlayer;
-    }
+    //protected override void FOVCheck(Action<float> callback = null)
+    //{
+    //    base.FOVCheck(distanceToTarget => {
 
-    protected void Start()
-    {
-        PlayerRef = GameObject.FindGameObjectWithTag("Player");//temp
+    //        if (distanceToTarget <= EscapeRadius)
+    //        {
+    //            _canEscapePlayer = true;
+    //        }
+    //        else
+    //        {
+    //            _canEscapePlayer = false;
+    //        }
+    //    });
+    //}
 
-        StartCoroutine(FOVRoutine());
-    }
-
-    protected IEnumerator FOVRoutine()
-    {
-        float delay = 0.2f;
-
-        WaitForSeconds wait = new WaitForSeconds(delay);
-
-        while (true)
-        {
-            yield return wait;
-            FOVCheck();
-        }
-    }
-
-    protected virtual void FOVCheck()
+    protected override void FOVCheck()
     {
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, Radius, TargetMask);
 
@@ -71,29 +48,40 @@ public class FieldOfView : MonoBehaviour
                     {
                         CanAttackPlayer = true;
 
-                        //callback?.Invoke(distanceToTarget);
+                        if (distanceToTarget <= EscapeRadius)
+                        {
+                            _canEscapePlayer = true;
+                        }
+                        else
+                        {
+                            _canEscapePlayer = false;
+                        }
                     }
                     else
                     {
                         CanAttackPlayer = false;
+                        _canEscapePlayer = false;
                     }
                 }
                 else
                 {
                     CanSeePlayer = false;
                     CanAttackPlayer = false;
+                    _canEscapePlayer = false;
                 }
             }
             else
             {
                 CanSeePlayer = false;
                 CanAttackPlayer = false;
+                _canEscapePlayer = false;
             }
         }
         else if (CanSeePlayer)
         {
             CanSeePlayer = false;
             CanAttackPlayer = false;
+            _canEscapePlayer = false;
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChaseState : BaseEnemyState
+public class ChaseState : BaseState
 {
     private bool _canSeePlayer;
     private bool _isPlayerInAttackRange;
@@ -63,6 +63,7 @@ public class ChaseState : BaseEnemyState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        _canSeePlayer = Enemy.GetPlayerVisionStatus();
+        _canSeePlayer = Enemy.FOV.GetVisionResponse();
+        _isPlayerInAttackRange = Enemy.FOV.GetAttackResponce();
     }
 }

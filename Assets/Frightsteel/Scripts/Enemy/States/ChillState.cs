@@ -1,4 +1,6 @@
-public class ChillState : BaseEnemyState
+using UnityEngine;
+
+public class ChillState : BaseState
 {
     private bool _canSeePlayer;
     
@@ -37,6 +39,6 @@ public class ChillState : BaseEnemyState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        _canSeePlayer = Enemy.GetPlayerVisionStatus();
+        _canSeePlayer = Enemy.FOV.GetVisionResponse();
     }
 }

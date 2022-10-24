@@ -1,9 +1,9 @@
-public abstract class BaseEnemyState
+public abstract class BaseState
 {
     protected BaseEnemy Enemy;
     protected StateMachine StateMachine;
 
-    protected BaseEnemyState(BaseEnemy enemy, StateMachine stateMachine)
+    protected BaseState(BaseEnemy enemy, StateMachine stateMachine)
     {
         Enemy = enemy;
         StateMachine = stateMachine;

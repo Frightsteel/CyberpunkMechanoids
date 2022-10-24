@@ -6,11 +6,15 @@ using UnityEngine;
 [CustomEditor(typeof(FieldOfView))]
 public class FieldOfViewGizmos : Editor
 {
-    private void OnSceneGUI()
+    protected virtual void OnSceneGUI()
     {
         FieldOfView fov = (FieldOfView)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.Radius);
+       
+        Handles.color = Color.red;
+        Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.AttackRadius);
+
 
         Vector3 viewAngle01 = DirectionFromAngle(fov.transform.eulerAngles.y, -fov.Angle / 2);
         Vector3 viewAngle02 = DirectionFromAngle(fov.transform.eulerAngles.y, fov.Angle / 2);

@@ -9,7 +9,7 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable
     [SerializeField] protected float Health;
     //protected float Armor;
     [SerializeField] protected float Damage;
-    
+
     [Header("Speed Options")]
     public float WalkSpeed;
     public float RunSpeed;
@@ -28,17 +28,14 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable
     private int _destPoint = 0;
 
     protected float Speed; //temp
-
     protected Rigidbody Rigidbody;
     protected Collider Collider;
-    
     protected GameObject PlayerTarget;
-
     protected StateMachine StateMachine;
+    
+    public FieldOfView FOV { get; private set; }
 
-    protected FieldOfView FOV;
-
-    [HideInInspector] public NavMeshAgent Agent;
+    public NavMeshAgent Agent;
 
     #region States
 
@@ -46,12 +43,24 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable
     public PatrolState PatrolState;
     public ChaseState ChaseState;
     public AttackState AttackState;
+    public EscapeState EscapeState;
 
     #endregion
 
+    protected virtual void Init()
+    {
+        StateMachine = new StateMachine();
+
+        ChillState = new ChillState(this, StateMachine);
+        PatrolState = new PatrolState(this, StateMachine);
+        ChaseState = new ChaseState(this, StateMachine);
+
+        StateMachine.Initialize(ChillState);
+    }
+
     #region MonoBehaviour Callbacks
 
-    private void Awake()
+    protected virtual void Awake()//temp
     {
         Rigidbody = GetComponent<Rigidbody>();
         Collider = GetComponent<Collider>();
@@ -60,6 +69,8 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable
         FOV = GetComponent<FieldOfView>();
 
         PlayerTarget = GameObject.FindGameObjectWithTag("Player"); //temp
+
+        Init();
     }
 
     private void Update()
@@ -75,22 +86,9 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable
 
     #endregion
 
-    protected BaseEnemy()
-    {
-        StateMachine = new StateMachine();
-        
-        ChillState = new ChillState(this, StateMachine);
-        PatrolState = new PatrolState(this, StateMachine);
-        ChaseState = new ChaseState(this, StateMachine);
-        AttackState = new AttackState(this, StateMachine);
+    #region Methods
 
-        StateMachine.Initialize(ChillState);
-    }
-
-    protected virtual void Attack()
-    {
-        
-    }
+    public virtual void Attack() { }
 
     protected void MoveTo(Vector3 reachPoint)
     {
@@ -116,6 +114,12 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable
         MoveTo(targetPos);
     }
 
+    //temp
+    public void StopMovement()
+    {
+        MoveTo(transform.position);
+    }
+
     public Vector3 RandomNavmeshLocation(float radius = 20f)
     {
         Vector3 randomDirection = Random.insideUnitSphere * radius;
@@ -139,11 +143,6 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable
         return PlayerTarget.transform.position;
     }
 
-    public bool GetPlayerVisionStatus()
-    {
-        return FOV.CanSeePlayer;
-    }
-
     public void TakeDamage(float damage) // temp
     {
         Health -= damage;
@@ -153,4 +152,7 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable
     {
        Speed = speed;
     }
+
+    #endregion
+
 }

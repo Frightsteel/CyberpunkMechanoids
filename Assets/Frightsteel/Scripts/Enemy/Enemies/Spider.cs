@@ -9,8 +9,10 @@ public class Spider : BaseEnemy
     private int _charges;
     private float _timer;
 
-    protected override void Attack()
+    public override void Attack()
     {
+        base.Attack();
+
         float distance = Vector3.Distance(transform.position, PlayerTarget.transform.position);
 
         if (_charges > 0 && distance <= RangeAttackRange)
@@ -35,20 +37,20 @@ public class Spider : BaseEnemy
         //use anim
     }
 
-    private void Start()
-    {
-        _timer = ChargesCooldown;
-    }
+    //private void Start()
+    //{
+    //    _timer = ChargesCooldown;
+    //}
 
-    private void Update()
-    {
-        if (_charges < MaxCharges)
-        {
-            _timer -= Time.deltaTime;
-            if (_timer <= 0f)
-            {
-                _charges++;
-            }
-        }
-    }
+    //private void Update()
+    //{
+    //    if (_charges < MaxCharges)
+    //    {
+    //        _timer -= Time.deltaTime;
+    //        if (_timer <= 0f)
+    //        {
+    //            _charges++;
+    //        }
+    //    }
+    //}
 }
