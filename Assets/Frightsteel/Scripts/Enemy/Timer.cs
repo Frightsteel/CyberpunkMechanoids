@@ -46,17 +46,25 @@ public class Timer
 
     public void Paused()
     {
-
+        IsPaused = true;
+        Unsubscribe();
+        OnTimerValueChangedEvent?.Invoke(RemainingSeconds);
     }
 
     public void Resume()
     {
-
+        IsPaused = false;
+        Subscribe();
+        OnTimerValueChangedEvent?.Invoke(RemainingSeconds);
     }
 
     public void Stop()
     {
+        Unsubscribe();
+        RemainingSeconds = 0f;
 
+        OnTimerValueChangedEvent?.Invoke(RemainingSeconds);
+        OnTimerFinishedEvent?.Invoke();
     }
 
     private void Subscribe()
@@ -111,11 +119,31 @@ public class Timer
 
     private void OnUpdateTick(float deltaTime)
     {
+        if (IsPaused)
+            return;
 
+        RemainingSeconds -= deltaTime;
+        CheckFinish();
     }
 
     private void OnOneSecTick()
     {
+        if (IsPaused)
+            return;
 
+        RemainingSeconds -= 1f;
+        CheckFinish();
+    }
+
+    private void CheckFinish()
+    {
+        if (RemainingSeconds <= 0)
+        {
+            Stop();
+        }
+        else
+        {
+            OnTimerValueChangedEvent?.Invoke(RemainingSeconds);
+        }
     }
 }

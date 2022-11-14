@@ -20,7 +20,7 @@ public class Sniper : BaseEnemy
         EscapeState = new EscapeState(this, StateMachine);
         AttackState = new AttackStateSniper(this, StateMachine);
 
-        WeaponReloadCooldown = new Cooldown(WeaponReloadTime);
+        WeaponReloadCooldown = new Cooldown(WeaponReloadTime, name);
     }
 
     protected override void Awake()
