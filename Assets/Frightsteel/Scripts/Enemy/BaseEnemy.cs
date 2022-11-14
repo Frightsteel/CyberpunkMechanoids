@@ -75,7 +75,7 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        Debug.Log(StateMachine.CurrentState);
+        //Debug.Log(StateMachine.CurrentState);
         StateMachine.CurrentState.LogicUpdate();
     }
 

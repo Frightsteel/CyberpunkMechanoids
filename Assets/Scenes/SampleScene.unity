@@ -393,7 +393,8 @@ MonoBehaviour:
   RangeAttackDamage: 0
   _points: {fileID: 746312139}
   Agent: {fileID: 1626058250}
-  EscapeRange: 0
+  WeaponReloadTime: 3
+  FOV: {fileID: 1626058252}
 --- !u!114 &1626058252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +409,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Radius: 10
   AttackRadius: 7
-  Angle: 120
+  Angle: 100
   PlayerRef: {fileID: 0}
   TargetMask:
     serializedVersion: 2
@@ -420,7 +421,6 @@ MonoBehaviour:
   CanAttackPlayer: 0
   PlayerLastSpot: {x: 0, y: 0, z: 0}
   EscapeRadius: 3
-  CanEscapePlayer: 0
 --- !u!1 &1730083769
 GameObject:
   m_ObjectHideFlags: 0

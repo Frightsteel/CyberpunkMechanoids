@@ -33,7 +33,10 @@ public class AttackStateSniper : AttackState
         }
         else if (IsPlayerInAttackRange)
         {
-            _sniper.Attack();
+            if (_sniper.WeaponReloadCooldown.IsCooldowned)
+            {
+                _sniper.Attack();
+            }   
         }
         else
         {

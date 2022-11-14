@@ -3,9 +3,15 @@ using UnityEngine.AI;
 
 public class Sniper : BaseEnemy
 {
+    [SerializeField] private float WeaponReloadTime = 3.0f;
+
     public FOVSniper FOV;
 
-    public float EscapeRange;
+    #region Cooldowns
+
+    [HideInInspector] public Cooldown WeaponReloadCooldown;
+
+    #endregion
 
     protected override void Init()
     {
@@ -13,6 +19,8 @@ public class Sniper : BaseEnemy
 
         EscapeState = new EscapeState(this, StateMachine);
         AttackState = new AttackStateSniper(this, StateMachine);
+
+        WeaponReloadCooldown = new Cooldown(WeaponReloadTime);
     }
 
     protected override void Awake()
@@ -20,6 +28,7 @@ public class Sniper : BaseEnemy
         base.Awake();
 
         FOV = GetComponent<FOVSniper>();
+
     }
 
     public override void Attack()
@@ -28,6 +37,7 @@ public class Sniper : BaseEnemy
         //shoot
         //use anim
         Debug.Log("Pew-Pew");
+        WeaponReloadCooldown.StartCooldown();
     }
 
     public void Escape()
