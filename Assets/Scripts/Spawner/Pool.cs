@@ -1,18 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace CyberpunkAwakening.Spawning
 {
-    public class Pool : MonoBehaviour
+    public class Pool/* : MonoBehaviour*/
     {
-        [SerializeField] private PoolObject _prefab;
-        [Space(10)] [SerializeField] private Transform _container;
-        [SerializeField] private int _minCapacity;
-        [SerializeField] private int _maxCapacity;
-        [SerializeField] private bool _autoExpand;
+        private PoolObject _prefabEnemi1;
+        private int _enemies1Count;
+        private PoolObject _prefabEnemi2;
+        private int _enemies2Count;
+        private Transform _container;
+
+        private int _minCapacity;
+        private int _maxCapacity;
+        private bool _autoExpand;
 
         private List<PoolObject> _pool;
+
+        public Pool(PoolObject prefabEnemi1, int enemies1Count, Transform container, PoolObject prefabEnemi2 = null, int enemies2Count = 0,  bool autoExpand = false)
+        {
+            _prefabEnemi1 = prefabEnemi1;
+            _enemies1Count = enemies1Count;
+            _prefabEnemi2 = prefabEnemi2;
+            _enemies2Count = enemies2Count;
+            _container = container;
+            _minCapacity = enemies1Count + enemies2Count;
+            _maxCapacity = _minCapacity*2;
+            _autoExpand = autoExpand;
+
+            _container.parent = null;
+            CreatePool();
+        }
 
         private void OnValidate()
         {
@@ -22,7 +42,7 @@ namespace CyberpunkAwakening.Spawning
             }
         }
 
-        private void Start()
+        public void Start()
         {
             _container.parent = null;
             CreatePool();
@@ -32,15 +52,19 @@ namespace CyberpunkAwakening.Spawning
         {
             _pool = new List<PoolObject>(_minCapacity);
 
-            for (int i = 0; i < _minCapacity; i++)
+            for (int i = 0; i < _enemies1Count; i++)
             {
-                CreateElement();
+                CreateElement(_prefabEnemi1);
+            }
+            for (int i = 0; i < _enemies2Count; i++)
+            {
+                CreateElement(_prefabEnemi2);
             }
         }
 
-        private PoolObject CreateElement(bool isActiveByDefault = false)
+        private PoolObject CreateElement(PoolObject prefab, bool isActiveByDefault = false)
         {
-            var createdElement = Instantiate(_prefab, _container);
+            var createdElement = Object.Instantiate(prefab, _container);
             createdElement.gameObject.SetActive(isActiveByDefault);
             _pool.Add(createdElement);
             return createdElement;
@@ -88,14 +112,14 @@ namespace CyberpunkAwakening.Spawning
             {
                 result = element;
             }
-            else if (_autoExpand == true)
-            {
-                result = CreateElement(true);
-            }
-            else if (_pool.Count < _maxCapacity)
-            {
-                result = CreateElement(true);
-            }
+            //else if (_autoExpand == true)
+            //{
+            //    result = CreateElement(true);
+            //}
+            //else if (_pool.Count == _maxCapacity)
+            //{
+            //    return null;
+            //}
             else
             {
                 throw new Exception("Pool is over!");
