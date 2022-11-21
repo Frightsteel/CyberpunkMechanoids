@@ -13,11 +13,13 @@ public class FieldOfView : MonoBehaviour
     public GameObject PlayerRef;
 
     public LayerMask TargetMask;
-    public LayerMask ObstrucionMask;
+    public LayerMask ObstructionMask;
 
     [HideInInspector] public bool CanSeePlayer;
     [HideInInspector] public bool CanAttackPlayer;
     [HideInInspector] public Vector3 PlayerLastSpot;
+
+    protected float _currentDistanceToTarget;
 
     public bool GetVisionResponse()
     {
@@ -49,10 +51,72 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
-    protected virtual void FOVCheck()
-    {
-        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, Radius, TargetMask);
+    //protected virtual void FOVCheck()
+    //{
+    //    Collider[] rangeChecks = Physics.OverlapSphere(transform.position, Radius, TargetMask);
 
+    //    if (rangeChecks.Length != 0)
+    //    {
+    //        Transform target = rangeChecks[0].transform;
+    //        Vector3 directionToTarget = (target.position - transform.position).normalized;
+
+    //        if (Vector3.Angle(transform.forward, directionToTarget) < Angle / 2)
+    //        {
+    //            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+
+    //            if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, ObstructionMask))
+    //            {
+    //                CanSeePlayer = true;
+    //                PlayerLastSpot = PlayerRef.transform.position;
+
+    //                if (distanceToTarget <= AttackRadius)
+    //                {
+    //                    CanAttackPlayer = true;
+
+    //                    //callback?.Invoke(distanceToTarget);
+    //                }
+    //                else
+    //                {
+    //                    CanAttackPlayer = false;
+    //                }
+    //            }
+    //            else
+    //            {
+    //                CanSeePlayer = false;
+    //                CanAttackPlayer = false;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            CanSeePlayer = false;
+    //            CanAttackPlayer = false;
+    //        }
+    //    }
+    //    else if (CanSeePlayer)
+    //    {
+    //        CanSeePlayer = false;
+    //        CanAttackPlayer = false;
+    //    }
+    //}
+
+    protected void FOVCheck()
+    {
+        if (CheckVisionRange())
+        {
+            CheckRanges();
+        }
+        else
+        {
+            DisableStatus();
+        }
+    }
+
+    private bool CheckVisionRange()
+    {
+        bool temp = false;
+        
+        Collider[] rangeChecks = Physics.OverlapSphere(transform.position, Radius, TargetMask);
+        
         if (rangeChecks.Length != 0)
         {
             Transform target = rangeChecks[0].transform;
@@ -60,40 +124,41 @@ public class FieldOfView : MonoBehaviour
 
             if (Vector3.Angle(transform.forward, directionToTarget) < Angle / 2)
             {
-                float distanceToTarget = Vector3.Distance(transform.position, target.position);
+                _currentDistanceToTarget = Vector3.Distance(transform.position, target.position);
 
-                if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, ObstrucionMask))
+                if (!Physics.Raycast(transform.position, directionToTarget, _currentDistanceToTarget, ObstructionMask))
                 {
                     CanSeePlayer = true;
                     PlayerLastSpot = PlayerRef.transform.position;
 
-                    if (distanceToTarget <= AttackRadius)
-                    {
-                        CanAttackPlayer = true;
-
-                        //callback?.Invoke(distanceToTarget);
-                    }
-                    else
-                    {
-                        CanAttackPlayer = false;
-                    }
+                    temp = true;
                 }
-                else
-                {
-                    CanSeePlayer = false;
-                    CanAttackPlayer = false;
-                }
-            }
-            else
-            {
-                CanSeePlayer = false;
-                CanAttackPlayer = false;
             }
         }
-        else if (CanSeePlayer)
+
+        return temp;
+    }
+
+    private void CheckAttackRange()
+    {
+        if (_currentDistanceToTarget <= AttackRadius)
         {
-            CanSeePlayer = false;
+            CanAttackPlayer = true;
+        }
+        else
+        {
             CanAttackPlayer = false;
         }
+    }
+
+    protected virtual void CheckRanges()
+    {
+        CheckAttackRange();
+    }
+
+    protected virtual void DisableStatus()
+    {
+        CanSeePlayer = false;
+        CanAttackPlayer = false;
     }
 }
