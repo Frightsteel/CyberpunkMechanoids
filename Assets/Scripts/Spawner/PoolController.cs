@@ -23,8 +23,9 @@ internal class PoolController : BaseController
     {
         _trialPoint = trialPoint;
         _prefabEnemis = prefabEnemis;
-        CreatePool();
         _container = container;
+
+        CreatePool();
     }
 
     private void CreatePool()
