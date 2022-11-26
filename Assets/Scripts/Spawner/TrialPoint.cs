@@ -7,34 +7,28 @@ using UnityEngine;
 
 public class TrialPoint : MonoBehaviour
 {
-    [Header("Настройки спауна")]
-    [SerializeField] private PoolObject _prefabEnemi1;
-    [SerializeField] private int _enemies1Count = 5;
-    [SerializeField] private PoolObject _prefabEnemi2;
+    [Header("Настройки спауна")] [SerializeField]
+    private int _enemies1Count = 5;
+
     [SerializeField] private int _enemies2Count = 5;
-    [SerializeField] private float _timeToSpawn = 2f;
+    [SerializeField] private int _enemies3Count = 5;
+    [Space(50)] [SerializeField] private float _timeToSpawn = 2f;
     [SerializeField] private List<Transform> _points;
     [SerializeField] private int _timeToStart = 3;
-    [Header("UI")]
-    [SerializeField] private TMP_Text _interactionsText;
+    [Header("UI")] [SerializeField] private TMP_Text _interactionsText;
     [SerializeField] private int _decayTimer = 3;
-    [Header("Дверь")]
-    [SerializeField] private GameObject _door;
-    [Header("Системные")]
-    [SerializeField] private Transform _container;
-    
+    [Header("Дверь")] [SerializeField] private GameObject _door;
 
-    public PoolObject PrefabEnemi1 => _prefabEnemi1;
+
     public int Enemies1Count => _enemies1Count;
-    public PoolObject PrefabEnemi2 => _prefabEnemi2;
     public int Enemies2Count => _enemies2Count;
+    public int Enemies3Count => _enemies3Count;
     public float TimeToSpawn => _timeToSpawn;
     public List<Transform> Points => _points;
     public int TimeToStart => _timeToStart;
     public TMP_Text InteractionsText => _interactionsText;
     public int DecayTimer => _decayTimer;
     public GameObject Door => _door;
-    public Transform Container => _container;
 
     public Action<TrialPoint> StartTrialEvent;
 
@@ -63,7 +57,7 @@ public class TrialPoint : MonoBehaviour
             _interactionsText.text = Start;
             _isCoverageArea = true;
         }
-        
+
     }
 
     private void OnTriggerExit(Collider other)

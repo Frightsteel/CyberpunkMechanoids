@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CyberpunkAwakening.Spawning
 {
     [RequireComponent(typeof(Pool))]
-    public class Spawner /*: MonoBehaviour*/
+    public class Spawner
     {
         private float _timeToSpawn = 2f;
         private List<Transform> _points;

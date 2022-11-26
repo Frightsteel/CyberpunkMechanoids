@@ -509,7 +509,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641518876}
-  m_LocalRotation: {x: 0.38455275, y: -0.0005526541, z: 0.00023022859, w: 0.92310286}
+  m_LocalRotation: {x: 0.38455272, y: -0.0005526929, z: 0.00023024475, w: 0.92310286}
   m_LocalPosition: {x: 0.014727814, y: 13.4, z: -6.0399914}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -662,10 +662,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43faabef975d4fd408098dfc8a619830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabEnemi1: {fileID: 6775000506127525493, guid: c9decf02a2e55014f9cb4e47308cd618, type: 3}
   _enemies1Count: 3
-  _prefabEnemi2: {fileID: 6775000506127525493, guid: e234fa4b0e262174d9ec3ffa0ac8a9be, type: 3}
   _enemies2Count: 3
+  _enemies3Count: 3
   _timeToSpawn: 4
   _points:
   - {fileID: 598808914}
@@ -675,8 +674,7 @@ MonoBehaviour:
   _timeToStart: 3
   _interactionsText: {fileID: 1238094876}
   _decayTimer: 3
-  _door: {fileID: 0}
-  _container: {fileID: 0}
+  _door: {fileID: 865561577}
 --- !u!65 &802388842
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1635,10 +1633,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43faabef975d4fd408098dfc8a619830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabEnemi1: {fileID: 6775000506127525493, guid: c9decf02a2e55014f9cb4e47308cd618, type: 3}
   _enemies1Count: 5
-  _prefabEnemi2: {fileID: 6775000506127525493, guid: e234fa4b0e262174d9ec3ffa0ac8a9be, type: 3}
   _enemies2Count: 5
+  _enemies3Count: 5
   _timeToSpawn: 2
   _points:
   - {fileID: 1271351839}
@@ -1649,7 +1646,6 @@ MonoBehaviour:
   _interactionsText: {fileID: 1238094876}
   _decayTimer: 3
   _door: {fileID: 1189082686}
-  _container: {fileID: 1394588608}
 --- !u!1 &1271351838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2379,10 +2375,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43faabef975d4fd408098dfc8a619830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prefabEnemi1: {fileID: 6775000506127525493, guid: c9decf02a2e55014f9cb4e47308cd618, type: 3}
   _enemies1Count: 2
-  _prefabEnemi2: {fileID: 6775000506127525493, guid: e234fa4b0e262174d9ec3ffa0ac8a9be, type: 3}
   _enemies2Count: 2
+  _enemies3Count: 1
   _timeToSpawn: 3
   _points:
   - {fileID: 2129419802}
@@ -2392,8 +2387,7 @@ MonoBehaviour:
   _timeToStart: 3
   _interactionsText: {fileID: 1238094876}
   _decayTimer: 3
-  _door: {fileID: 0}
-  _container: {fileID: 0}
+  _door: {fileID: 1201062338}
 --- !u!65 &1731559144
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2519,6 +2513,12 @@ MonoBehaviour:
   - {fileID: 1731559143}
   - {fileID: 802388841}
   _playerManager: {fileID: 2059645838641142487}
+  _prefabEnemis:
+  - {fileID: 6775000506127525493, guid: c9decf02a2e55014f9cb4e47308cd618, type: 3}
+  - {fileID: 6775000506127525493, guid: 5721607793ece5447ad55739b26b23a7, type: 3}
+  - {fileID: 6775000506127525493, guid: e234fa4b0e262174d9ec3ffa0ac8a9be, type: 3}
+  _container: {fileID: 1394588608}
+  _decayTimer: 3
 --- !u!1 &2129419801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2804,7 +2804,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2059645837745733504}
-  m_LocalRotation: {x: 0.38455275, y: -0.0005526541, z: 0.00023022859, w: 0.92310286}
+  m_LocalRotation: {x: 0.38455272, y: -0.0005526929, z: 0.00023024475, w: 0.92310286}
   m_LocalPosition: {x: 0.014727814, y: 13.4, z: -6.0399914}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
