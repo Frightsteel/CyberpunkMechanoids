@@ -8,23 +8,25 @@ using UnityEngine;
 namespace CyberpunkAwakening.Spawning
 {
     [RequireComponent(typeof(Pool))]
-    public class Spawner : MonoBehaviour
+    public class Spawner
     {
-        [SerializeField] private float _timeToSpawn = 2f;
-        [SerializeField] private List<Transform> _points;
+        private float _timeToSpawn = 2f;
+        private List<Transform> _points;
 
         private int _currentSpawnPoint;
         private Pool _pool;
         private IDisposable _disposable;
         private PlayerManager _player;
 
-        private void Awake()
+        public Spawner(Pool pool, PlayerManager player, float timeToSpawn, List<Transform> points)
         {
-            _pool = GetComponent<Pool>();
-            _player = FindObjectOfType<PlayerManager>();
+            _pool = pool;
+            _player = player;
+            _timeToSpawn = timeToSpawn;
+            _points = points;
         }
 
-        private void Start()
+        public void Start()
         {
             StartSpawn();
         }
@@ -40,12 +42,12 @@ namespace CyberpunkAwakening.Spawning
                 .Repeat()
                 .Subscribe(_ =>
                 {
-                    print("Spawn");
+                    //print("Spawn");
                     _currentSpawnPoint %= _points.Count;
                     var point = _points[_currentSpawnPoint++];
                     var enemy = _pool.GetFreeElement(point.position);
                     enemy.GetComponent<EnemyTest>().Init(_player);
-                }).AddTo(this);
+                }).AddTo((ICollection<IDisposable>)this);
         }
 
         private void StopSpawn()
