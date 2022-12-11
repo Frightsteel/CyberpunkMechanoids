@@ -69,11 +69,11 @@ public class TrialPoint : MonoBehaviour
 
     private IEnumerator StartTrial()
     {
-        float ñountdown = 1;
+        int ñountdown = _timeToStart;
         for (int i = 0; i < _timeToStart; i++)
         {
             _interactionsText.text = ñountdown.ToString();
-            ñountdown++;
+            ñountdown--;
             yield return new WaitForSeconds(1f);
         }
 
